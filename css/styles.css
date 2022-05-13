@@ -1,0 +1,113 @@
+body,
+h1 {
+  font-weight: 300;
+  background-color: #eee;
+}
+
+#intro {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prefix {
+  text-align: center;
+  font-size: 1rem;
+  color: #bde7ed;
+}
+
+#counter,
+#score {
+  text-align: center;
+  background-color: transparent;
+  color: #bde7ed;
+}
+
+.question-holder {
+  height: 10rem;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  
+}
+
+.answer-container {
+  display: flex;
+  flex-direction: initial;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 14px;
+  border-color: #bde7ed;
+}
+
+.answer-prefix {
+  background-color: #ffffff;
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.answer-text {
+  padding: 1.5rem;
+  width: 100%;
+  margin: 0;
+  color: #bde7ed;
+  text-align: center;
+}
+
+.answer-container:hover {
+  cursor: pointer;
+  box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
+  transform: translateY(-0.1rem);
+  transition: transform 200ms;
+}
+
+.correct {
+  background-color: #e671f8;
+}
+
+.incorrect {
+  background-color: #e671f8;
+}
+
+.overlay-card { 
+width: 30%;
+position: absolute;
+z-index: 9;
+background-color: #000000e2;
+border-radius: 30px;
+color: #bde7ed;
+box-shadow: 0 0.4rem 1.4rem 0 rgba(37, 37, 37, 0.58);
+margin-left: 29%;
+}
+
+.card-title {
+  text-align: center;
+}
+
+.card-text {
+  text-align: center;
+}
+
+#shotglass1, #shotglass2, #shotglass3 {
+  height: 40px;
+}
+
+body {
+  background-image: url('/img/Door_V2.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#countdown {
+  background-color: transparent;
+  color: #bde7ed;
+}
+
+
+#question {
+  background-color: transparent;
+  color: #bde7ed;
+}

@@ -1,0 +1,142 @@
+[
+   {
+      "id":1,
+      "question":"Welche Eigenschaft gehört nach J.Nielsen zur Usability?",
+      "a":"Merkbarkeit",
+      "b":"Nutzungsunzufriedenheit",
+      "c":"Steuerung",
+      "d":"Stabilität",
+      "e":"Funktionalität",
+      "answer":"a"
+   },
+   {
+      "id":2,
+      "question":"Was ist Kognition?",
+      "a":"Fähigkeiten des Bewegungsapparates",
+      "b":"Leistungen des Gehirns",
+      "c":"Fertigkeit des Merkens",
+      "d":"Gefühl für andere Menschen",
+      "e":"Indische Göttin",
+      "answer":"b"
+   },
+   {
+      "id":3,
+      "question":"Was sind Grundlagen der Wahrnehmung?",
+      "a":"Subjekte, Objekte, Prädikate",
+      "b":"Bewegung, Schnelligkeit, Licht",
+      "c":"Umwelt, Objekte, Ereignisse",
+      "d":"Zeit, Raum, Lichtgeschwindigkeit",
+      "e":"Ereignisse, Veranstaltungen, Gruppen",
+      "answer":"c"
+   },
+   {
+      "id":4,
+      "question":"Welche Art der Information ist für Menschen uninteressant?",
+      "a":"viele Farben",
+      "b":"kurze Dauer",
+      "c":"gute Struktur",
+      "d":"hohe Dichte",
+      "e":"helle Räume",
+      "answer":"d"
+   },
+   {
+      "id":5,
+      "question":"Welche Art der Wahrnehmungstheorie ist konstruierte Wahrnehmung?",
+      "a":"bottom up -  vom Sehsystem ausgehend",
+      "b":"side step - sowohl vom Sehsystem als auch dem Gehirn ausgehend",
+      "c":"bottom down - das Gehirn auslassend",
+      "d":"side down - ohne Augen",
+      "e":"top down - vom Gehirn ausgehend",
+      "answer":"e"
+   },
+   {
+      "id":6,
+      "question":"Woraus entstehen semantische Einschränkungen?",
+      "a":"Bedeutung des Artefaktes und Situation der Nutzung",
+      "b":"kulturelle Konventionen",
+      "c":"Schlüsse aus vorhandenen Wissen",
+      "d":"taktilen Vorgaben",
+      "e":"Kurzschlüssen bei der Informationsverarbeitung",
+      "answer":"a"
+   },
+   {
+      "id":7,
+      "question":"Woraus entsteht ein Wissensfehler",
+      "a":"Fehlen von Daten",
+      "b":"Fehlen geeignetem Handlungsmuster",
+      "c":"Fehler beim Ergebnisvergleich mit Ziel",
+      "d":"nicht berücksichtigen von Nebenwirkungen",
+      "e":"gedanklichem Vorauseilen",
+      "answer":"b"
+   },
+   {
+      "id":8,
+      "question":"Worauf bezieht sich die Analyse das 'was' bei der Lasswell Formel?",
+      "a":"Medium",
+      "b":"Publikum",
+      "c":"Inhalt",
+      "d":"Effekt",
+      "e":"Kommunikation",
+      "answer":"c"
+   },
+   {
+      "id":9,
+      "question":"Welche Art von Kommunikationsmodell ist Shannon/Weaver?",
+      "a":"Physikalisches Modell",
+      "b":"Biologische Modell",
+      "c":"Soziologisches Modell",
+      "d":"Mathematisches Modell",
+      "e":"Psychologisches Modell",
+      "answer":"d"
+   },
+   {
+      "id":10,
+      "question":"Welcher Begriff gehört nicht zu den 4 Seiten Modell von Schulz v. Thun?",
+      "a":"Apell",
+      "b":"Sachinhalt",
+      "c":"Beziehung",
+      "d":"Selbstoffenbarung",
+      "e":"Symbolverhandlung",
+      "answer":"e"
+   },
+   {
+      "id":11,
+      "question":"Was ist die oberste der fünf Stufen von Kompetenzaneignung?",
+      "a":"Expertin",
+      "b":"Neuling",
+      "c":"Anfängerin",
+      "d":"Kompetenz",
+      "e":"Gewandtheit",
+      "answer":"a"
+   },
+   {
+      "id":12,
+      "question":"Was sind bedeutsame Zeichen?",
+      "a":"nur für die Sprache",
+      "b":"für Kommunikation definiert",
+      "c":"nur mit Bildern",
+      "d":"medienunabhängig definiert",
+      "e":"für die Kommunikation nicht notwendig",
+      "answer":"b"
+   },
+   {
+      "id":13,
+      "question":"Wann wurde das WWW an der ETH Zürich präsentiert?",
+      "a":"1982",
+      "b":"1882",
+      "c":"1992",
+      "d":"1972",
+      "e":"1999",
+      "answer":"c"
+   },
+   {
+      "id":13,
+      "question":"Wann wurde wahrscheinlich das Rad erfunden?",
+      "a":"vor 6000 Jahren",
+      "b":"vor 7000 Jahren",
+      "c":"vor 2000 Jahren",
+      "d":"vor 6000 Jahren",
+      "e":"vor 4000 Jahren",
+      "answer":"d"
+   }
+]
