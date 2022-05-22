@@ -25,13 +25,32 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
+<!-- Start your project here-->
 
-  
+ <!-- Shotglass Wrong Answer Overlay Loose Life-->
+ <div class="cards">
+ <div class="overlay-card" id="wrongAnswer">
+  <img src="/img/ShotglassGif.gif" class="card-img-top" alt="Shotglass Gif"/>
+  <div class="card-body">
+    <h5 class="card-title">Falsche Antwort!</h5>
+    <p class="card-text">Ein Schluck zur Stärkung!</p>
+  </div>
+</div>
 
-    <!-- Start your project here-->
- 
+<!-- Phone Wrong Answer Overlay Loose Time-->
+  <div class="overlay-card" id="wrongAnswer2">
+    <img src="/img/Phone.gif" class="card-img-top" alt="Phone Gif"/>
+    <div class="card-body">
+      <h5 class="card-title">Falsche Antwort!</h5>
+      <p class="card-text">Mama will wissen wie's dir geht!</p>
+    </div>
+  </div>
+</div>
 
     <div class="container my-5">
+      <div class="headerText">
+        <img src="/img/Bouncer_Font.svg" class="headerImage" alt="Bouncer"/>
+      </div>
       <div id="intro">
             
         <div class="score">
@@ -58,24 +77,6 @@
       <div class="question-holder row">
         <div class="col-12">
           <h1 id="question">What is the answer to this question?</h1>
-        </div>
-      </div>
-
-    <!-- Shotglass Wrong Answer Overlay Loose Life-->
-    <div class="overlay-card" id="wrongAnswer">
-      <img src="/img/ShotglassGif.gif" class="card-img-top" alt="Shotglass Gif"/>
-      <div class="card-body">
-        <h5 class="card-title">Falsche Antwort!</h5>
-        <p class="card-text">Ein Schluck zur Stärkung!</p>
-      </div>
-    </div>
-
-    <!-- Phone Wrong Answer Overlay Loose Time-->
-      <div class="overlay-card" id="wrongAnswer2">
-        <img src="/img/Phone.gif" class="card-img-top" alt="Phone Gif"/>
-        <div class="card-body">
-          <h5 class="card-title">Falsche Antwort!</h5>
-          <p class="card-text">Mama will wissen wie's dir geht!</p>
         </div>
       </div>
 
@@ -127,9 +128,11 @@
     <div
       class="modal fade"
       id="endGameModal"
+      data-backdrop="static"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
+      
     >
       <div class="modal-dialog">
         <div class="modal-content">
