@@ -19,7 +19,7 @@ let score;
 const MAX_QUESTIONS = 10;
 
 //Timer
-const startingMinutes = 1;
+const startingMinutes = 3;
 let time = startingMinutes * 60;
 const countDownEl = document.getElementById("countdown");
 
@@ -30,6 +30,9 @@ var shotglass3 = document.getElementById("shotglass3");
 var s1full = true;
 var s2full = true;
 var s3full = true;
+
+//save wrong Answers
+var userWrongAnswers = [];
  
 setInterval(updateContdown, 1000);
 
@@ -46,6 +49,7 @@ function updateContdown(){
   } else if (time == 0){
     displayResults();
     time = -1;
+    countDownEl.style.visibility = "hidden";
   }
   //console.log(time);
 }
@@ -86,6 +90,7 @@ startGame = () => {
   getNewQuestion();
   time = startingMinutes * 60
   wrongOverlay.style.visibility = "hidden";
+  countDownEl.style.visibility = "visible";
   //inster full shotglasses
   s1full = true;
   s2full = true;
@@ -103,8 +108,10 @@ const getRandomQuestions = (arr, n) => {
     );
   }
 
+  //makes copy of original array and shuffles through it 
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
 
+  //getting n elements out of the shuffeled elements  
   return (selected = shuffled.slice(0, n));
 };
 
@@ -114,6 +121,10 @@ const getNewQuestion = () => {
     displayResults();
     return;
   }
+
+  //FALSCH BEANTWORTETE FRAGEN WIEDER ANZEIGEN
+
+
 
   questionCounter++;
   questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
@@ -148,8 +159,14 @@ const getNewQuestion = () => {
 
         //random number for Overlay
         const rndInt = randomInteger(1,2);
-        console.log("Random Number: "+rndInt);
+        //console.log("Random Number: "+rndInt);
         
+        //push wrong question into array
+        //userWrongAnswers.push(currentQuestion);
+        availableQuestions.push(currentQuestion);
+        //console.log(questions) gives the whole object back
+        console.log("Wrong Question saved: "+ userWrongAnswers);
+        console.log("Available Questions "+ availableQuestions);
         
         if (rndInt == 2){
               if (s3full == true) {
@@ -169,6 +186,7 @@ const getNewQuestion = () => {
                 time = -1;
                 wrongOverlay.style.visibility = "visible";
                 displayResults();
+                countDownEl.style.visibility = "hidden";
                 return;
             }  else {
               console.log("All shotglasses are full");
@@ -176,7 +194,12 @@ const getNewQuestion = () => {
           } else {
             //phone overlay
           wrongOverlay2.style.visibility = "visible";
-          time = time - 10;
+          if (time >= 10) {
+            time = time - 10;
+          } else {
+            time = 0;
+          }
+          
           }
 
       }
