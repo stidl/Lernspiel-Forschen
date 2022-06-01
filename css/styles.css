@@ -1,12 +1,30 @@
 body,
 h1 {
   font-weight: 300;
-  background-color: #eee;
+  color:#BDE7ED;
+  text-align: center;
+  font-family: 'K2D';
+}
+
+body{
+  background-color: #2a154a;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+p{
+  text-align: center;
 }
 
 #intro {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  position: relative;
+  margin-top: 4px;
 }
 
 .prefix {
@@ -17,21 +35,42 @@ h1 {
 }
 
 #counter,
-#score {
+#score,#timer {
   text-align: center;
   background-color: transparent;
   color: #bde7ed;
 }
 
+.counter{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+
+.questionNewTry{
+  color: #f8719a;
+  margin: 0;
+  padding: 0;
+}
+
+#counter, #countdown{
+  margin-bottom: 0;
+}
+
 .question-holder {
-  height: 9rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
   text-align: center;
   align-items: center;
-  
+  width: 100%;
 }
 
-.answer-container {
+#question{
+  margin-bottom: 0;
+}
+
+.answer-container, .result-answer-container {
   display: flex;
   flex-direction: initial;
   margin-bottom: 1rem;
@@ -40,36 +79,62 @@ h1 {
   border: 2px solid white;
   border-radius: 14px;
   border-color: #bde7ed;
+  cursor: pointer;
 }
 
-.answer-prefix {
+.answer-prefix, .result-answer-prefix {
   background-color: #ffffff;
   color: white;
   padding: 0;
   margin: 0;
 }
 
-.answer-text {
+.answer-text, .result-answer-text {
   padding: 0.8rem;
   width: 100%;
   margin: 0;
   color: #bde7ed;
   text-align: center;
+  
 }
 
-.answer-container:hover {
-  cursor: pointer;
+.correct, .incorrect{
   box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
   transform: translateY(-0.1rem);
   transition: transform 200ms;
 }
 
-.correct {
-  background-color: #e671f8;
+.row{
+  width: 100%;
+}
+
+.col-12{
+  padding: 0;
+}
+
+.correct{
+  background-color: #bde7ed;
+  border-radius: 14px;
+  font-size: 1.2rem;
+  border: 2px solid white;
+  border-color: #bde7ed;
+  color: #2a154a;
 }
 
 .incorrect {
-  background-color: #e671f8;
+  background-color: #f8719a;
+  border-radius: 14px;
+  font-size: 1.2rem;
+  border: 2px solid white;
+  border-color: #bde7ed;
+}
+
+.result-answer-text{
+  color: #2a154a;
+}
+
+.selectedElementText{
+  color: #2a154a;
 }
 
 .cards {
@@ -80,7 +145,6 @@ h1 {
   align-content: center;
   justify-content: center;
   position: absolute;
-  
   height: 100%;
   width: 100%;
 }
@@ -96,6 +160,10 @@ justify-content: center;
 position: absolute;
 }
 
+.loseTime{
+  color: #f8719a;
+}
+
 .card-img-top {
   margin: auto;
 }
@@ -109,14 +177,15 @@ position: absolute;
 }
 
 #shotglass1, #shotglass2, #shotglass3 {
-  height: 40px;
+  height: 32px;
 }
 
 body {
-  background-image: url('/img/Door_V2.png');
+  background-image: url('/lernspiel/img/Door_V2.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  background-position: center center;
   width: 100vw;
   height: 100vh;
 }
@@ -135,13 +204,16 @@ body {
 .my-5{
   margin-top: 0 !important;
   height: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  padding-bottom: 15px;
 }
 
 .headerText {
-  display: flex;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,7 +221,7 @@ body {
   align-content: center;
   justify-content: center;
   background-color: #2a154a;
-  width: 106%;
+  width: 112%;
 }
 
 .headerImage {
@@ -157,4 +229,186 @@ body {
   margin-bottom: 10px;
   width: 11rem;
   align-self: center;
+}
+
+.startBtn{
+  width: 100%;
+  background-color: #45e7ed;
+  border: none;
+  border-radius: 12px;
+  color: #2A1A4E;
+  height: 51px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 50px;
+}
+
+.descriptionBtn{
+  width: 100%;
+  background-color: #e671f8;
+  border: none;
+  border-radius: 12px;
+  color: #2A1A4E;
+  height: 35px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.backToStartScreen{
+  background-color: #e671f8;
+  border: none;
+  border-radius: 12px;
+  color: #2A1A4E;
+  height: 35px;
+  font-weight: 700;
+  font-size: 20px;
+  width: 50%;
+  align-self: center;
+  margin-bottom: 20px;;
+}
+
+.resultsBtn, .copyBtn{
+  width: 100%;
+  background-color: #e671f8;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  height: 37px;
+  color: #2A1A4E;
+  font-size: 20px;
+}
+
+.playAgainBtn, .playAgainBtnWin{
+  width: 100%;
+  background-color: #45e7ed;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  height: 51px;
+  color: #2A1A4E;
+  font-size: 28px;
+}
+
+.backBtn, .nextResultBtn, .previousResultBtn{
+  background-color: #e671f8;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  height: 37px;
+  color: #2A1A4E;
+  font-size: 18px;
+  width: 50%;
+  margin: 10px;
+  margin-top: 0;
+  align-self: center;
+}
+
+.backBtn{
+  background-color: #45e7ed;
+}
+
+.ResultBtnContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+.resultDescriptionText{
+  margin-bottom: 0;
+}
+
+.content{
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+form {
+  width: 100%;
+  align-self: center;
+}
+
+input {
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 5px;
+  border-color: #bde7ed;
+  color: #bde7ed;
+  text-align: center;
+  height: 39px;
+}
+
+label{
+  color: #bde7ed;
+  text-align: center;
+  display: block;
+  font-size: 28px;
+  font-weight: 500;
+  padding-top: 30px;
+}
+
+input[type=text]:focus{
+  outline: 2px solid #bde7ed;
+}
+
+.instructions{
+  width: 100%;
+  flex-direction: column;
+  display: none;
+  position: absolute;
+  margin-top: 100px;
+}
+
+.instructionsImage{
+    height:100%;
+    width: 100%;
+}
+
+.startScreenContainer{
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.winScreenContainer{
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.gameContainer{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.resultsContainer{
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.endScreenContainer{
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lostScreenImg{
+  align-self: center;
+  width:90%; 
+}
+
+.drunkLost{
+ height: 100%;
 }
