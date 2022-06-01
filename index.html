@@ -1,79 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Material Design for Bootstrap</title>
-    <!-- MDB icon -->
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
-    />
-    <!-- Google Fonts Roboto -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-    />
-    <!-- MDB -->
-    <link rel="stylesheet" href="css/mdb.min.css" />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-<!-- Start your project here-->
 
- <!-- Shotglass Wrong Answer Overlay Loose Life-->
- <div class="cards">
- <div class="overlay-card" id="wrongAnswer">
-  <img src="/img/ShotglassGif.gif" class="card-img-top" alt="Shotglass Gif"/>
-  <div class="card-body">
-    <h5 class="card-title">Falsche Antwort!</h5>
-    <p class="card-text">Ein Schluck zur Stärkung!</p>
-  </div>
-</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Material Design for Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=K2D:wght@400;500;700&family=Play&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="css/mdb.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Custom scripts -->
+  <script src="./js/scripts.js" type="module"></script>
+</head>
 
-<!-- Phone Wrong Answer Overlay Loose Time-->
-  <div class="overlay-card" id="wrongAnswer2">
-    <img src="/img/Phone.gif" class="card-img-top" alt="Phone Gif"/>
-    <div class="card-body">
-      <h5 class="card-title">Falsche Antwort!</h5>
-      <p class="card-text">Mama will wissen wie's dir geht!</p>
+<body>
+  <!-- HEADER -->
+  <div class="container my-5">
+    <div class="headerText">
+      <img src="./img/Bouncer_Font.svg" class="headerImage" alt="Bouncer" />
     </div>
-  </div>
-</div>
 
-    <div class="container my-5">
-      <div class="headerText">
-        <img src="/img/Bouncer_Font.svg" class="headerImage" alt="Bouncer"/>
+    <!-- START SCREEN -->
+    <div class="startScreenContainer">
+      <form action="/action_page.php">
+        <label for="fname">Matrikelnummer:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <label for="lname">Code:</label><br>
+        <input type="text" id="lname" name="lname"><br><br>
+        <input class="startBtn" id="startGameBtn" type="button" value="Start">
+      </form>
+
+      <button class="descriptionBtn" id="showDescriptionBtn" type="button" >Anleitung</button>
+    </div>
+
+     <!-- INSTRUCTIONS -->
+    <div class="instructions" id="gameInstructions">
+      <img src="./img/Instructions.png" class="instructionsImage" id="instructionsImage" alt="Instructions" />
+      <button class="backToStartScreen" id="backToStartScreenBtn" type="button" width="50px" >Zurück</button>
+    </div>
+
+    <!-- INTRO VIDEO -->
+    <div class="introVideoContainer" style="display: none">
+      <video class="introVideo" id="introVid" width="100%" autoplay>
+        <source src="./img/Intro1.mp4" id="introVideoSrc" type=video/mp4>
+      </video>
+    </div>
+
+    <!-- Shotglass Wrong Answer Overlay Loose Life-->
+    <div class="cards" style="visibility: hidden">
+      <div class="overlay-card" id="wrongAnswer">
+        <img src="./img/ShotglassGif.gif" class="card-img-top" alt="Shotglass Gif" />
+        <div class="card-body">
+          <h5 class="card-title">Falsche Antwort!</h5>
+          <p class="card-text">Ein Schluck zur Stärkung!</p>
+        </div>
       </div>
+
+      <!-- Phone Wrong Answer Overlay Loose Time-->
+      <div class="overlay-card" id="wrongAnswer2">
+        <img src="./img/Phone.gif" class="card-img-top" alt="Phone Gif" />
+        <div class="card-body">
+          <h5 class="card-title">Falsche Antwort!</h5>
+          <p class="card-text">Mama will wissen wie's dir geht!</p>
+          <p class="loseTime">-10 Sekunden</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN GAME -->
+    <div class="gameContainer">
       <div id="intro">
-            
-        <div class="score">
-          <p class="prefix">Score:</p>
-          <h1 id="score">3</h1>
+
+        <div id="score">
           <div class="shotglasses" id="shotglasses">
-            <img src="/img/IconShotglass_full.png" id="shotglass1" alt="Shotglass1"/>
-            <img src="/img/IconShotglass_full.png" id="shotglass2" alt="Shotglass2"/>
-            <img src="/img/IconShotglass_full.png" id="shotglass3" alt="Shotglass3"/>
+            <img src="./img/IconShotglass_full.png" id="shotglass1" alt="Shotglass1" />
+            <img src="./img/IconShotglass_full.png" id="shotglass2" alt="Shotglass2" />
+            <img src="./img/IconShotglass_full.png" id="shotglass3" alt="Shotglass3" />
           </div>
         </div>
 
         <div class="counter">
-          <p class="prefix">Frage:</p>
           <h1 id="counter">1/10</h1>
         </div>
-
+      
         <div class="timer">
-          <p class="prefix">Zeit:</p>
           <h1 id="countdown"></h1>
         </div>
 
       </div>
+
+      <p class="questionNewTry" id="questionNewTryText">Neuer Versuch:</p>
+
       <div class="question-holder row">
         <div class="col-12">
           <h1 id="question">What is the answer to this question?</h1>
@@ -88,6 +110,7 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-12">
           <div class="answer-container card">
@@ -96,14 +119,16 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-12">
           <div class="answer-container card">
             <p class="answer-prefix"></p>
-            <p class="answer-text" data-answer="c">Answer B</p>
+            <p class="answer-text" data-answer="c">Answer C</p>
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-12">
           <div class="answer-container card">
@@ -122,56 +147,138 @@
       </div>
     </div>
 
-    
+    <!-- OUTRO VIDEO -->
+    <div class="outroVideoContainer" style="display: none">
+      <video class="outroVideo" id="outroVidLose" width="100%" autoplay>
+        <source src="./img/Outro_Verlieren.mp4" type=video/mp4>
+      </video>
+    </div>
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="endGameModal"
-      data-backdrop="static"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
+    <!-- END SCREEN -->
+    <div class="endScreenContainer">
       
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Game ended</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-mdb-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body" id="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-mdb-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-mdb-dismiss="modal"
-              id="restart"
-            >
-              Restart
-            </button>
+        <h1>Oh nein!</h1>
+
+        <img src="./img/ShotglassGif.gif" class="lostScreenImg" id="lostScreenImage" alt="Shotglass Gif" />
+
+        <p>Du hast verloren. Gehe woanders hin!</p>
+      
+      <h2 id="scoreText">0/10 Fragen korrekt</h2>
+
+      <button class="resultsBtn" id="resultsButton" type="button">Detailansicht</button>
+
+      <button class="playAgainBtn" id="playAgainButton" type="button">Erneut spielen</button>
+    </div>
+
+      <!-- OUTRO Win VIDEO -->
+      <div class="outroWinVideoContainer" style="display: none">
+        <video class="outroWinVideo" id="outroVidWin" width="100%" autoplay>
+          <source src="./img/Outro_Gewinnen.mp4" type=video/mp4>
+        </video>
+      </div>
+
+    <!-- WIN SCREEN -->
+    <div class="winScreenContainer">
+      <h1>Gut gemacht!</h1>
+      <p>Du hast alle Fragen richtig beantwortet und kommst in den Club!</p>
+      <h2>Hier ist dein Code: </br> 123456789x</h2>
+      <button class="copyBtn" type="button">Code kopieren</button>
+      <button class="playAgainBtnWin" id="playAgainButtonWin" type="button">Erneut spielen</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="resultsContainer">
+      <p class="resultDescriptionText">Hier siehst du alle deine falsch beantworteten<br>Fragen und deren richtigen Antworten:</p>
+
+      <div class="WrongQuestionText">
+        <div class="col-12">
+          <h1 id="result-question" class="result-question-text">What is the answer to this question?</h1>
+        </div>
+      </div>
+
+      <div class="ResultAnswers">
+        <div class="col-12">
+          <div class="result-answer-container card" id="resultAnswerContainer">
+            <p class="result-answer-prefix"></p>
+            <p class="result-answer-text" data-answer="a">Answer A</p>
           </div>
         </div>
       </div>
+
+      <div class="ResultAnswers">
+        <div class="col-12">
+          <div class="result-answer-container card" id="resultAnswerContainer">
+            <p class="result-answer-prefix"></p>
+            <p class="result-answer-text" data-answer="b">Answer B</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ResultAnswers">
+        <div class="col-12">
+          <div class="result-answer-container card" id="resultAnswerContainer">
+            <p class="result-answer-prefix"></p>
+            <p class="result-answer-text" data-answer="c">Answer C</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ResultAnswers">
+        <div class="col-12">
+          <div class="result-answer-container card" id="resultAnswerContainer">
+            <p class="result-answer-prefix"></p>
+            <p class="result-answer-text" data-answer="d">Answer D</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ResultAnswers">
+        <div class="col-12">
+          <div class="result-answer-container card" id="resultAnswerContainer">
+            <p class="result-answer-prefix"></p>
+            <p class="result-answer-text" data-answer="e">Answer E</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ResultBtnContainer">
+      <button class="previousResultBtn" id="previousResultButton" type="button">Vorherige Frage</button>
+      <button class="nextResultBtn" id="nextResultButton" type="button">Nächste Frage</button>
     </div>
 
-    <!-- End your project here-->
+      <button class="backBtn" id="backButton" type="button">Zurück</button>
+    </div>
+  </div>
 
-    <!-- MDB -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-    <!-- Custom scripts -->
-    <script src="js/scripts.js"></script>
-  </body>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="endGameModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Game ended</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modal-body">...</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" id="restart">
+            Restart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End your project here-->
+
+  <!-- MDB -->
+  <script type="./text/javascript" src="./js/mdb.min.js"></script>
+
+</body>
+
 </html>
