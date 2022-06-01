@@ -136,7 +136,7 @@
 	"b":"Anfang 20. Jahrhundert",
 	"c":"Anfang 17. Jahrhundert",
 	"d":"Anfang 19. Jahrhundert",
-	"e":"Anfang 16. Jahrhundert",
+	"e":"Anfang 18. Jahrhundert",
       "answer":"d"
    },
    {
@@ -191,7 +191,7 @@
    },
    {
       "id":20,
-      "question":"Was kommt in der Definitionen von Personas nicht vor?",
+      "question":"Was kommt in der Definition von Personas nicht vor?",
 	"a":"Nutzungsmotivation",
 	"b":"Lebensziele",
 	"c":"Erfahtungsziele",
@@ -241,7 +241,7 @@
    },
    {
       "id":25,
-      "question":"Welche Wirkung haben Organisationschemata nicht?",
+      "question":"Welche Wirkung haben Organisationsschemata nicht?",
 	"a":"strukturieren Wissen",
 	"b":"ordnen die Welt",
 	"c":"steuern Wahrnehmung",
