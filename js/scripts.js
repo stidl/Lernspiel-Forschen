@@ -1,233 +1,432 @@
-const question = document.getElementById("question");
-const answers = Array.from(document.getElementsByClassName("answer-text"));
-const questionCounterText = document.getElementById("counter");
-const scoreText = document.getElementById("score");
-const restart = document.getElementById("restart");
+import { randomItems, shuffle } from "./arrUtil.mjs";
+import readQuestions from "./read.mjs";
 
-//disable score
-//scoreText.style.visibility = "hidden";
-scoreText.style.display = "none";
+const StartingMinutes = 4;
+const StartingSeconds = StartingMinutes * 60;
+const MaxQuestions = 10;
 
-const wrongOverlay = document.getElementById("wrongAnswer")
-wrongOverlay.style.visibility = "hidden";
-
-const wrongOverlay2 = document.getElementById("wrongAnswer2")
-wrongOverlay2.style.visibility = "hidden";
-
-let questionCounter;
-let score;
-const MAX_QUESTIONS = 10;
-
-//Timer
-const startingMinutes = 3;
-let time = startingMinutes * 60;
-const countDownEl = document.getElementById("countdown");
-
-//shotglasses
-var shotglass1 = document.getElementById("shotglass1");
-var shotglass2 = document.getElementById("shotglass2");
-var shotglass3 = document.getElementById("shotglass3");
-var s1full = true;
-var s2full = true;
-var s3full = true;
-
-//save wrong Answers
-var userWrongAnswers = [];
- 
-setInterval(updateContdown, 1000);
-
-function updateContdown(){
-  const minutes = Math.floor(time/60);
-  let seconds = time % 60;
-  seconds = seconds < 10 ? '0' + seconds : seconds;
-
-  countDownEl.innerHTML = `${minutes}:${seconds}`;
-  
-  //timer function
-  if (time > 0) {
-    time--;
-  } else if (time == 0){
-    displayResults();
-    time = -1;
-    countDownEl.style.visibility = "hidden";
-  }
-  //console.log(time);
-}
-
-//random overlay for wrong answer
+/**
+ * 
+ * @param {number} min 
+ * @param {number} max 
+ * @returns {number}
+ */
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let acceptingAnswers;
-
-function loadFromFile() {
-  let xhr = new XMLHttpRequest();
-
-  xhr.open("GET", "js.json", false);
-
-  xhr.send();
-
-  xhr.onload = function () {
-    if (this.status == 200) {
-      //console.log(this.response)
-    } else {
-      console.log("Oops something went wrong");
-    }
-  };
-
-  return xhr.response;
+function coolLog(thing) {
+  console.log(JSON.stringify(thing))
 }
 
-let questions = JSON.parse(loadFromFile());
+function hide(selector) {
+  document.querySelector(selector).style.display = "none";
+}
 
-startGame = () => {
-  questionCounter = 0;
-  score = 0;
-  acceptingAnswers = true;
-  scoreText.innerText = score;
-  availableQuestions = getRandomQuestions(questions, MAX_QUESTIONS);
-  getNewQuestion();
-  time = startingMinutes * 60
+function show(selector, display) {
+  document.querySelector(selector).style.display = display;
+}
+
+function toggleResults() {
+  hide(".resultsContainer");
+  show(".endScreenContainer", "flex");
+}
+
+window.onload = async () => {
+  const allQuestions = await readQuestions();
+  const questionText = document.getElementById("question");
+  const answerElements = Array.from(document.getElementsByClassName("answer-text"));
+  const questionCountText = document.getElementById("counter");
+
+  let scoreText = document.getElementById("scoreText");
+  const restartBtn = document.getElementById("restart");
+  const wrongOverlay = document.getElementById("wrongAnswer");
   wrongOverlay.style.visibility = "hidden";
-  countDownEl.style.visibility = "visible";
-  //inster full shotglasses
-  s1full = true;
-  s2full = true;
-  s3full = true;
-  shotglass1.src = "/img/IconShotglass_full.png";
-  shotglass2.src = "/img/IconShotglass_full.png";
-  shotglass3.src = "/img/IconShotglass_full.png";
-};
+  const wrongOverlay2 = document.getElementById("wrongAnswer2");
+  wrongOverlay2.style.visibility = "hidden";
+  const countDownText = document.getElementById("countdown");
 
-const getRandomQuestions = (arr, n) => {
-  let len = arr.length;
-  if (n > len) {
-    throw new RangeError(
-      "getRandomQuestions: more elements taken than available"
-    );
+  //shotglasses
+  let shotglassImg1 = document.getElementById("shotglass1");
+  let shotglassImg2 = document.getElementById("shotglass2");
+  let shotglassImg3 = document.getElementById("shotglass3");
+
+  //Lose Screen Image
+  let loseImage = document.getElementById("lostScreenImage");
+
+  function startScreen() {
+    hide(".gameContainer");
+    hide(".resultsContainer");
+    hide(".instructions");
+    //add to not have them while loading in the beginning
+    hide(".instructions");
+
+    show(".startScreenContainer", "flex");
+
+    //zuerst der Screen dann play intro video und dann start Game
+
+    //Buttons
+    const startGameBtn = document.getElementById("startGameBtn");
+    const showDescriptionBtn = document.getElementById("showDescriptionBtn");
+    const backToStartScreenBtn = document.getElementById("backToStartScreenBtn");
+
+    //add event listener to buttons
+    startGameBtn.addEventListener("click", playStartVid);
+    showDescriptionBtn.addEventListener("click", showInstructionsClick);
+    backToStartScreenBtn.addEventListener("click", hideInstructionsClick);
+
+    
+
+    function showInstructionsClick() {
+      show(".instructions", "flex");
+    }
+
+    function hideInstructionsClick() {
+      hide(".instructions");
+    }
+
   }
 
-  //makes copy of original array and shuffles through it 
-  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  function playStartVid() {
+    hide(".startScreenContainer");
+    show(".introVideoContainer", "flex");
 
-  //getting n elements out of the shuffeled elements  
-  return (selected = shuffled.slice(0, n));
-};
+    //ändere video at 
 
+    //random number for Overlay
+    const rndVideoInt = randomInteger(1, 2);
+    let introVid = document.getElementById("introVid");
 
-const getNewQuestion = () => {
-  if (availableQuestions.length === 0) {
-    displayResults();
-    return;
+    if (rndVideoInt == 1) {
+      introVid.src = "./img/Intro1.mp4";
+    } else if (rndVideoInt == 2) {
+      introVid.src = "./img/Intro2.mp4";
+    }
+
+    introVid.play();
+    introVid.addEventListener('ended', videoEnd, false);
+
+    function videoEnd(e) {
+      startGame();
+      introVid.webkitExitFullScreen();
+    }
   }
 
-  //FALSCH BEANTWORTETE FRAGEN WIEDER ANZEIGEN
+  function startGame() {
+    let score = 0;
+    let answeredQuestionCount = 0;
+    let remainingSeconds = StartingSeconds
+    let timerReference = 0
+    let isAcceptingAnswers = true;
+    let s1full = true;
+    let s2full = true;
+    let s3full = true;
+    let remainingQuestions = randomItems(allQuestions, MaxQuestions);
+    //For the Results
+    //let wrongAnsweredQuestions = randomItems(allQuestions, MaxQuestions);
 
+    /**
+     * @type {Question[]}
+     */
+    let wrongAnsweredQuestions = [];
 
+    hide(".introVideoContainer");
+    hide(".endScreenContainer");
+    hide(".outroWinVideoContainer");
+    hide(".winScreenContainer");
 
-  questionCounter++;
-  questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
+    /**
+      * @param {number} value 
+      */
+    function setScore(value) {
+      score = value;
+      scoreText.innerHTML = score + "/10 Fragen korrekt";
+    }
 
-  currentQuestion = availableQuestions[0];
-  question.innerText = currentQuestion.question;
+    function updateClock() {
+      const minutes = Math.floor(remainingSeconds / 60);
+      let seconds = remainingSeconds % 60;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+      countDownText.innerHTML = `${minutes}:${seconds}`;
+    }
 
-  answers.forEach((answer) => {
-    answer.innerText = currentQuestion[answer.dataset["answer"]];
-  });
-  //TODO add randomization
+    function setRemainingSeconds(seconds) {
+      remainingSeconds = Math.max(seconds, 0)
+      updateClock()
+    }
 
-  answers.forEach((answer) => {
-    answer.addEventListener("click", (e) => {
-      if (!acceptingAnswers) {
-        return;
-      }
-      acceptingAnswers = false;
-      const clickedAnswer = e.target;
+    function decreaseRemainingSeconds(seconds) {
+      setRemainingSeconds(remainingSeconds - seconds)
+    }
 
-      const anwseredLetter = clickedAnswer.dataset["answer"];
-      
-      let classToApply = "incorrect";
-      
-
-      if (anwseredLetter === currentQuestion.answer) {
-        score++;
-        scoreText.innerText = score;
-        classToApply = "correct";
-        //wrongOverlay.style.visibility = "visible";
+    function countDown() {
+      decreaseRemainingSeconds(1)
+      if (remainingSeconds === 0) {
+        loseImage.src = "./img/Phone.gif";
+        playLoseVid();
       } else {
+        startOneSecondTimeout()
+      }
+    }
 
-        //random number for Overlay
-        const rndInt = randomInteger(1,2);
-        //console.log("Random Number: "+rndInt);
-        
-        //push wrong question into array
-        //userWrongAnswers.push(currentQuestion);
-        availableQuestions.push(currentQuestion);
-        //console.log(questions) gives the whole object back
-        console.log("Wrong Question saved: "+ userWrongAnswers);
-        console.log("Available Questions "+ availableQuestions);
-        
-        if (rndInt == 2){
-              if (s3full == true) {
-                shotglass3.src = "/img/IconShotglass_empty.png";
-                console.log("Shotglass 3 was full");
-                s3full = false;
-                wrongOverlay.style.visibility = "visible";
-              } else if (s3full == false && s2full==true) {
-                shotglass2.src = "/img/IconShotglass_empty.png";
-                console.log("Shotglass 2 was full");
-                s2full = false;
-                wrongOverlay.style.visibility = "visible";
-              } else if (s2full == false && s1full == true) {
-                shotglass1.src = "/img/IconShotglass_empty.png";
-                console.log("Shotglass 1 was full");
-                s1full = false;
-                time = -1;
-                wrongOverlay.style.visibility = "visible";
-                displayResults();
-                countDownEl.style.visibility = "hidden";
-                return;
-            }  else {
-              console.log("All shotglasses are full");
-            }
-          } else {
-            //phone overlay
-          wrongOverlay2.style.visibility = "visible";
-          if (time >= 10) {
-            time = time - 10;
-          } else {
-            time = 0;
-          }
-          
-          }
+    function startOneSecondTimeout() {
+      updateClock();
+      timerReference = setTimeout(countDown, 1000)
+    }
 
+    function stopTimer() {
+      clearTimeout(timerReference)
+    }
+
+    function setQuestionCount(value) {
+      answeredQuestionCount = value;
+      questionCountText.innerText = `Frage ${answeredQuestionCount}/${MaxQuestions}`;
+
+      if (answeredQuestionCount > MaxQuestions){
+        show(".questionNewTry", "flex") 
+      } else {
+        hide(".questionNewTry");
+      }
+    }
+
+    function playLoseVid() {
+      hide(".gameContainer");
+      show(".outroVideoContainer", "flex");
+      wrongOverlay.style.visibility = "hidden";
+      wrongOverlay2.style.visibility = "hidden";
+      let outroVid = document.getElementById("outroVidLose");
+      outroVid.play();
+      outroVid.addEventListener('ended', videoEnd, false);
+
+      function videoEnd(e) {
+        displayEndScreen();
+        outroVid.webkitExitFullScreen();
       }
 
+    }
 
-      clickedAnswer.parentElement.classList.add(classToApply);
+    function playWinVid() {
+      hide(".gameContainer");
+      show(".outroWinVideoContainer", "flex");
+
+      let outroVid = document.getElementById("outroVidWin");
+      outroVid.play();
+      outroVid.addEventListener('ended', videoEnd, false);
+
+      function videoEnd(e) {
+        displayWinScreen();
+        outroVid.webkitExitFullScreen();
+      }
+
+    }
+
+    function displayWinScreen() {
+      stopTimer()
+      hide(".outroWinVideoContainer");
+      show(".winScreenContainer", "flex");
+      isAcceptingAnswers = false;
+      //Buttons
+      const playAgainBtnWin = document.getElementById("playAgainButtonWin");
+      playAgainBtnWin.addEventListener("click", playStartVid); 
+    }
+
+    function displayEndScreen() {
+      wrongOverlay.style.visibility = "hidden";
+      wrongOverlay2.style.visibility = "hidden";
+      stopTimer()
+      //hide(".gameContainer");
+      hide(".outroVideoContainer");
+      show(".endScreenContainer", "flex");
+      isAcceptingAnswers = false;
+
+      //Buttons
+      const resultsBtn = document.getElementById("resultsButton");
+      const playAgainBtn = document.getElementById("playAgainButton");
+
+      //add event listener to buttons
+      resultsBtn.addEventListener("click", displayResults);
+      playAgainBtn.addEventListener("click", playStartVid);
+    }
+
+    function displayResults() {
+      let resultIndex = 0;
+
+      //Result Screen Buttons
+      const backBtn = document.querySelector("#backButton");
+      const nextResultBtn = document.getElementById("nextResultButton");
+      const previousResultButton = document.getElementById("previousResultButton");
+
+      const resultQuestionText = document.getElementById("result-question");
+      const resultAnswerElements = Array.from(document.getElementsByClassName("result-answer-text"));
+
+      hide(".endScreenContainer");
+      show(".resultsContainer", "flex");
+
+      //add event listener to back button
+      backBtn.addEventListener("click", toggleResults);
+
+      function incrementResultIndex() {
+        //länge ist anzahl der tatsächlichen elemente/beginnt bei 1 und nicht bei 0
+        if (resultIndex < wrongAnsweredQuestions.length - 1) {
+          resultIndex++;
+        }
+        displayCurrentQuestion();
+      }
+
+      function decrementResultIndex() {
+        if (resultIndex > 0) {
+          resultIndex--;
+        }
+        displayCurrentQuestion();
+      }
+
+      function displayCurrentQuestion() {
+        let currentResultQuestion = wrongAnsweredQuestions[resultIndex];
+        resultQuestionText.innerText = currentResultQuestion.text;
+
+        resultAnswerElements.forEach(function (element, index) {
+          let currentResultAnswer = currentResultQuestion.answers[index]
+          element.innerText = currentResultAnswer.text;
+
+          if (currentResultAnswer.isCorrect) {
+            element.parentElement.className = "correct"
+          } else {
+            element.parentElement.className = "incorrect"
+          }
+        })
+      }
+
+      nextResultBtn.addEventListener("click", incrementResultIndex);
+      previousResultButton.addEventListener("click", decrementResultIndex);
+      displayCurrentQuestion();
+    }
+
+
+  function displayNextQuestion() {
+    if (remainingQuestions.length === 0) {
+      playWinVid();
+      return;
+    }
+    //löscht erste Frage aus dem Array und gibt sie in Variable
+    const currentQuestion = remainingQuestions.shift();
+    const currentAnswers = shuffle(currentQuestion.answers);
+
+    function drinkShot() {
+      wrongOverlay.style.visibility = "visible";
+      if (s3full == true) {
+        shotglassImg3.src = "./img/IconShotglass_empty.png";
+        s3full = false;
+      } else if (s2full == true) {
+        shotglassImg2.src = "./img/IconShotglass_empty.png";
+        s2full = false;
+      } else if (s1full == true) {
+        shotglassImg1.src = "./img/IconShotglass_empty.png";
+        s1full = false;
+        //displayResults();
+        playLoseVid();
+        //ändere BIld zu betrunken
+        loseImage.src = "./img/ShotglassGif.gif";
+      }
+    }
+
+    function callMum() {
+      //phone overlay
+      wrongOverlay2.style.visibility = "visible";
+      decreaseRemainingSeconds(10)
+    }
+
+    function displayWrongAnswer() {
+
+      //random number for Overlay
+      const rndInt = randomInteger(1, 3);
+
+      if (rndInt == 1) {
+        drinkShot();
+      } else if (rndInt == 2) {
+        callMum();
+      }
+    }
+    /**
+     * 
+     * @param {HTMLElement} element 
+     * @param {Answer} answer 
+     */
+    function giveAnswer(element, answer) {
+      isAcceptingAnswers = false;
+      let classToApply = "incorrect";
+      let classToApplyText = "selectedElementText";
+
+      if (answer.isCorrect) {
+        setScore(score + 1)
+        classToApply = "correct";
+        classToApplyText = "selectedElementText";
+        //coolLog(wrongAnsweredQuestions);
+        //wenn die frage im wrongAnswered array ist und ich sie richtig beantworte dann rauslöschen
+        if(wrongAnsweredQuestions.indexOf(currentQuestion) > -1){
+          //console.log("Frage ist schon im Array");
+          wrongAnsweredQuestions = wrongAnsweredQuestions.filter(questions => questions.Question != currentQuestion);
+        }
+      } else {
+        displayWrongAnswer();
+        //push wrong question into array
+        remainingQuestions.push(currentQuestion);
+        //wrongAnsweredQuestions.push(currentQuestion);
+
+        //nicht die gleiche Frage zwei Mal hinzufügen, falls zwei Mal falsch beantwortet
+        //gibts trotzdem öfter rein!
+        if(wrongAnsweredQuestions.indexOf(currentQuestion) === -1){
+          wrongAnsweredQuestions.push(currentQuestion);
+        }
+        
+        //coolLog(wrongAnsweredQuestions);
+      }
+
+      element.parentElement.classList.add(classToApply);
+      element.classList.add(classToApplyText);
 
       setTimeout(() => {
-        clickedAnswer.parentElement.classList.remove(classToApply);
-        getNewQuestion();
-        acceptingAnswers = true;
+        element.parentElement.classList.remove(classToApply);
+        element.classList.remove(classToApplyText);
+        displayNextQuestion();
+        isAcceptingAnswers = true;
         wrongOverlay.style.visibility = "hidden";
         wrongOverlay2.style.visibility = "hidden";
-      }, 2000);
+      }, 1500);
+    }
+
+    setQuestionCount(answeredQuestionCount + 1);
+
+    questionText.innerText = currentQuestion.text;
+
+    answerElements.forEach((element, index) => {
+      //speichert current answer an der stelle index in variable
+      const answer = currentAnswers[index];
+      //coolLog(answer);
+      element.innerText = answer.text;
+      element.onclick = function () {
+        if (!isAcceptingAnswers) {
+          return;
+        }
+        giveAnswer(element, answer);
+      };
     });
-  });
-  availableQuestions.shift();
-};
+  }
 
-displayResults = () => {
-  const myModalEl = document.getElementById("myModal");
-  const modal = new mdb.Modal(endGameModal);
-  const modalBody = document.getElementById("modal-body");
-  modalBody.innerText = `You scored: ${score}`;
-  modal.show();
-  acceptingAnswers = false;
-};
+  show(".gameContainer", "flex");
+  hide(".resultsContainer");
 
-restart.addEventListener("click", startGame);
+  displayNextQuestion();
+  wrongOverlay.style.visibility = "hidden";
+  countDownText.style.visibility = "visible";
+  shotglassImg1.src = "./img/IconShotglass_full.png";
+  shotglassImg2.src = "./img/IconShotglass_full.png";
+  shotglassImg3.src = "./img/IconShotglass_full.png";
 
-startGame();
+  startOneSecondTimeout() // Start timer first time
+
+}
+restartBtn.addEventListener("click", startGame);
+
+//startGame();
+startScreen();
+}
