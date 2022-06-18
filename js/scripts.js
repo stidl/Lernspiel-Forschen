@@ -36,7 +36,7 @@ window.onload = async () => {
   const allQuestions = await readQuestions();
   const questionText = document.getElementById("question");
   const answerElements = Array.from(document.getElementsByClassName("answer-text"));
-  const questionCountText = document.getElementById("counter");
+  let questionCountText = document.getElementById("counter");
 
   let scoreText = document.getElementById("scoreText");
   const restartBtn = document.getElementById("restart");
@@ -180,12 +180,14 @@ window.onload = async () => {
 
     function setQuestionCount(value) {
       answeredQuestionCount = value;
-      questionCountText.innerText = `Frage ${answeredQuestionCount}/${MaxQuestions}`;
-
+      
       if (answeredQuestionCount > MaxQuestions){
-        show(".questionNewTry", "flex") 
+        //show(".questionNewTry", "flex") 
+        questionCountText.innerText = "2. Chance";
+        questionCountText.style.color = "#f8719a";
       } else {
-        hide(".questionNewTry");
+        questionCountText.innerText = `Frage ${answeredQuestionCount}/${MaxQuestions}`;
+        questionCountText.style.color = "#bde7ed";
       }
     }
 
@@ -391,7 +393,7 @@ window.onload = async () => {
         isAcceptingAnswers = true;
         wrongOverlay.style.visibility = "hidden";
         wrongOverlay2.style.visibility = "hidden";
-      }, 1500);
+      }, 2000);
     }
 
     setQuestionCount(answeredQuestionCount + 1);

@@ -231,7 +231,7 @@
    }, 
    {
       "id":24,
-      "question":"Wozu führ die Kombination von Gestaltgesetzen?",
+      "question":"Wozu führt die Kombination von Gestaltgesetzen?",
 	"a":"Änderung oder Aufhebung",
 	"b":"Vertstärkung und Abschwächung",
 	"c":"Verschiebung und Aufhebung",
@@ -245,7 +245,7 @@
 	"a":"strukturieren Wissen",
 	"b":"ordnen die Welt",
 	"c":"steuern Wahrnehmung",
-	"d":"unterstützen Wissensinterpretatin",
+	"d":"unterstützen Wissensinterpretation",
 	"e":"beschleunigen Informationsabruf",
       "answer":"e"
    },

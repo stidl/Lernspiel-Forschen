@@ -310,6 +310,7 @@ body {
 .ResultBtnContainer{
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
 }
 
 .resultDescriptionText{
@@ -397,6 +398,9 @@ input[type=text]:focus{
   width: 100%;
 }
 
+.ButtonContainerResults{
+  margin-top: 10px;
+}
 .endScreenContainer{
   height: 100%;
   display: none;
